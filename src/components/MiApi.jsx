@@ -3,9 +3,8 @@ import Accordion from 'react-bootstrap/Accordion';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
-import Container from 'react-bootstrap/esm/Container';
 
-function DatosFeriados({ buscaFeriado }) {
+function DatosFeriados({ buscaFeriado, ferFecha, ferTipo }) {
   const [feriados, setFeriados] = useState([]);
 
   useEffect(() => {
@@ -19,6 +18,27 @@ function DatosFeriados({ buscaFeriado }) {
     setFeriados(data.data);
   };
 
+  function displayDate(fecha) {
+    let to = new Date(fecha).getTimezoneOffset() * 60000;
+    let dcons = new Date(Date.parse(fecha) + to);
+    let m = dcons.getMonth();
+
+    return new Date(Date.parse(fecha) + to).toLocaleDateString('es-ES', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  }
+
+  function dateMonth(fecha) {
+    let to = new Date(fecha).getTimezoneOffset() * 60000;
+    let dcons = new Date(Date.parse(fecha) + to);
+    let m = dcons.getMonth();
+    console.log(ferFecha);
+    return m;
+  }
+
   return (
     <>
       <h4 className="pt-4 text-center">Feriados de Chile</h4>
@@ -30,12 +50,19 @@ function DatosFeriados({ buscaFeriado }) {
               .filter((feriado) =>
                 feriado.title
                   .toLowerCase()
-                  .includes(buscaFeriado.toLocaleLowerCase())
+                  .includes(buscaFeriado.toLocaleLowerCase()) &&
+                ferTipo === 'all'
+                  ? true
+                  : feriado.extra
+                      .toLocaleLowerCase()
+                      .includes(ferTipo.toLocaleLowerCase()) && ferFecha === -1
+                  ? true
+                  : dateMonth(feriado.date) === ferFecha
               )
               .map((feriado, i) => (
                 <ListGroup key={i}>
                   <ListGroup.Item variant="secondary" className="wrap">
-                    {feriado.date}
+                    {displayDate(feriado.date)}
                   </ListGroup.Item>
                   <ListGroup.Item className="mb-2 wrap">
                     {feriado.title}
@@ -50,18 +77,6 @@ function DatosFeriados({ buscaFeriado }) {
         <Col></Col>
       </Row>
     </>
-    // <ol>
-    //   {bdFeriados.map((feriado, i) => (
-    //     <>
-    //       <li key={i}>{feriado.title}</li>
-    //       <ul>
-    //         <li>Fecha: {feriado.date}</li>
-    //         <li>Tipo: {feriado.extra}</li>
-    //       </ul>
-    //       <br></br>
-    //     </>
-    //   ))}
-    // </ol>
   );
 }
 export default DatosFeriados;

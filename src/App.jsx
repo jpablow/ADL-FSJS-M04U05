@@ -11,6 +11,8 @@ import { useState } from 'react';
 
 function App() {
   const [buscaFeriado, setBuscaFeriado] = useState('');
+  const [ferFecha, setFerFecha] = useState(-1);
+  const [ferTipo, setFerTipo] = useState('all');
 
   return (
     <>
@@ -23,14 +25,22 @@ function App() {
               <Col></Col>
               <Col xs={12} md={10} lg={10} xl={10} xxl={8}>
                 <Accordion.Body>
-                  <Busqueda setBuscaFeriado={setBuscaFeriado} />
+                  <Busqueda
+                    setBuscaFeriado={setBuscaFeriado}
+                    setFerTipo={setFerTipo}
+                    setFerFecha={setFerFecha}
+                  />
                 </Accordion.Body>
               </Col>
               <Col></Col>
             </Row>
           </Accordion.Item>
           <Accordion.Item eventKey="1" className="py-4">
-            <DatosFeriados buscaFeriado={buscaFeriado} />
+            <DatosFeriados
+              buscaFeriado={buscaFeriado}
+              ferTipo={ferTipo}
+              ferFecha={ferFecha}
+            />
           </Accordion.Item>
         </Accordion>
       </Container>
