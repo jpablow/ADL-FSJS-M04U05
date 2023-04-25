@@ -53,7 +53,7 @@ function Busqueda({ setBuscaFeriado, setFerFecha, setFerTipo }) {
               onChange={handleSwitchChange}
             />
           </Col> */}
-          <Col>
+          <Col className="me-2">
             <Form.Select
               defaultValue="all"
               aria-label="select-tipo"
@@ -69,8 +69,7 @@ function Busqueda({ setBuscaFeriado, setFerFecha, setFerTipo }) {
               <option value="Religioso">Religioso</option>
             </Form.Select>
           </Col>
-          <Col></Col>
-          <Col>
+          <Col className="ms-2">
             <Form.Select
               defaultValue={-1}
               aria-label="select-mes"
