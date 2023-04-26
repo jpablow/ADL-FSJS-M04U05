@@ -1,5 +1,5 @@
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState } from 'react';
 import Header from './components/Header';
 import DatosFeriados from './components/MiApi';
 import Container from 'react-bootstrap/Container';
@@ -7,12 +7,9 @@ import Accordion from 'react-bootstrap/Accordion';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Busqueda from './components/Busqueda';
-import { useState } from 'react';
 
 function App() {
   const [buscaFeriado, setBuscaFeriado] = useState('');
-  const [ferFecha, setFerFecha] = useState(-1);
-  const [ferTipo, setFerTipo] = useState('all');
 
   return (
     <>
@@ -25,22 +22,14 @@ function App() {
               <Col></Col>
               <Col xs={12} md={10} lg={10} xl={10} xxl={8}>
                 <Accordion.Body>
-                  <Busqueda
-                    setBuscaFeriado={setBuscaFeriado}
-                    setFerTipo={setFerTipo}
-                    setFerFecha={setFerFecha}
-                  />
+                  <Busqueda setBuscaFeriado={setBuscaFeriado} />
                 </Accordion.Body>
               </Col>
               <Col></Col>
             </Row>
           </Accordion.Item>
           <Accordion.Item eventKey="1" className="py-4">
-            <DatosFeriados
-              buscaFeriado={buscaFeriado}
-              ferTipo={ferTipo}
-              ferFecha={ferFecha}
-            />
+            <DatosFeriados buscaFeriado={buscaFeriado} />
           </Accordion.Item>
         </Accordion>
       </Container>

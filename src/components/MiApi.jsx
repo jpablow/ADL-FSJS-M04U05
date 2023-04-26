@@ -4,7 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
 
-function DatosFeriados({ buscaFeriado, ferFecha, ferTipo }) {
+function DatosFeriados({ buscaFeriado }) {
   const [feriados, setFeriados] = useState([]);
 
   useEffect(() => {
@@ -20,10 +20,9 @@ function DatosFeriados({ buscaFeriado, ferFecha, ferTipo }) {
 
   function displayDate(fecha) {
     let to = new Date(fecha).getTimezoneOffset() * 60000;
-    let dcons = new Date(Date.parse(fecha) + to);
-    let m = dcons.getMonth();
+    let dateCl = new Date(Date.parse(fecha) + to);
 
-    return new Date(Date.parse(fecha) + to).toLocaleDateString('es-ES', {
+    return dateCl.toLocaleDateString('es-ES', {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
@@ -31,13 +30,9 @@ function DatosFeriados({ buscaFeriado, ferFecha, ferTipo }) {
     });
   }
 
-  function dateMonth(fecha) {
-    let to = new Date(fecha).getTimezoneOffset() * 60000;
-    let dcons = new Date(Date.parse(fecha) + to);
-    let m = dcons.getMonth();
-    console.log(ferFecha);
-    return m;
-  }
+  const ferFiltro = feriados.filter((feriado) =>
+    feriado.title.toLocaleLowerCase().includes(buscaFeriado.toLocaleLowerCase())
+  );
 
   return (
     <>
@@ -46,32 +41,19 @@ function DatosFeriados({ buscaFeriado, ferFecha, ferTipo }) {
         <Col></Col>
         <Col xs={10} md={8} lg={8} xl={7} xxl={6}>
           <Accordion.Body as="div">
-            {feriados
-              .filter((feriado) =>
-                feriado.title
-                  .toLowerCase()
-                  .includes(buscaFeriado.toLocaleLowerCase()) &&
-                ferTipo === 'all'
-                  ? true
-                  : feriado.extra
-                      .toLocaleLowerCase()
-                      .includes(ferTipo.toLocaleLowerCase()) && ferFecha === -1
-                  ? true
-                  : dateMonth(feriado.date) === ferFecha
-              )
-              .map((feriado, i) => (
-                <ListGroup key={i}>
-                  <ListGroup.Item variant="secondary" className="wrap">
-                    {displayDate(feriado.date)}
-                  </ListGroup.Item>
-                  <ListGroup.Item className="mb-2 wrap">
-                    {feriado.title}
-                    <br></br>
-                    <hr></hr>
-                    {feriado.extra}
-                  </ListGroup.Item>
-                </ListGroup>
-              ))}
+            {ferFiltro.map((feriado, i) => (
+              <ListGroup key={i}>
+                <ListGroup.Item variant="secondary" className="wrap">
+                  {displayDate(feriado.date)}
+                </ListGroup.Item>
+                <ListGroup.Item className="mb-2 wrap">
+                  {feriado.title}
+                  <br></br>
+                  <hr></hr>
+                  {feriado.extra}
+                </ListGroup.Item>
+              </ListGroup>
+            ))}
           </Accordion.Body>
         </Col>
         <Col></Col>
