@@ -1,5 +1,4 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
 import { useState } from 'react';
 import Header from './components/Header';
 import DatosFeriados from './components/MiApi';
@@ -9,7 +8,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Busqueda from './components/Busqueda';
 import Image from 'react-bootstrap/Image';
-import Alert from 'react-bootstrap/Alert';
 
 function App() {
   const [buscaFeriado, setBuscaFeriado] = useState('');
