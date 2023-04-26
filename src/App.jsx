@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 import { useState } from 'react';
 import Header from './components/Header';
 import DatosFeriados from './components/MiApi';
@@ -7,6 +8,8 @@ import Accordion from 'react-bootstrap/Accordion';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Busqueda from './components/Busqueda';
+import Image from 'react-bootstrap/Image';
+import Alert from 'react-bootstrap/Alert';
 
 function App() {
   const [buscaFeriado, setBuscaFeriado] = useState('');
@@ -14,6 +17,14 @@ function App() {
   return (
     <>
       <Header />
+      <Container>
+        <Row className="justify-content-center">
+          <Image
+            src="https://imgmedia.larepublica.pe/1200x660/larepublica/original/2021/11/27/61a29e2bd528765b053d856a.jpg"
+            fluid
+          />
+        </Row>
+      </Container>
       <Container fluid="lg" className="mt-3 pb-3">
         <Accordion defaultActiveKey={['1']} alwaysOpen>
           <Accordion.Item eventKey="0">
